@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kiểm tra mật khẩu</title>
+</head>
+<body>
+
+<script>
+// Hàm kiểm tra mật khẩu
+function validatePassword(password) {
+  let errors = [];
+
+  if (password.length < 8) {
+    errors.push("Mật khẩu phải có ít nhất 8 ký tự.");
+  }
+  if (!/[A-Z]/.test(password)) {
+    errors.push("Phải có ít nhất một chữ hoa (A-Z).");
+  }
+  if (!/[a-z]/.test(password)) {
+    errors.push("Phải có ít nhất một chữ thường (a-z).");
+  }
+  if (!/[0-9]/.test(password)) {
+    errors.push("Phải có ít nhất một chữ số (0-9).");
+  }
+  if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) {
+    errors.push("Phải có ít nhất một ký tự đặc biệt.");
+  }
+
+  return errors;
+}
+
+// Hàm đánh giá độ mạnh
+function checkStrength(password) {
+  if (password.length === 8) {
+    return "Yếu";
+  } else if (password.length < 12) {
+    return "Trung bình";
+  } else {
+    return "Mạnh";
+  }
+}
+
+// Chương trình chính
+let password;
+
+while (true) {
+  password = prompt("Nhập mật khẩu:");
+
+  if (password === null) {
+    alert("Bạn đã hủy nhập!");
+    break;
+  }
+
+  let errors = validatePassword(password);
+
+  if (errors.length > 0) {
+    alert("Mật khẩu không hợp lệ:\n" + errors.join("\n"));
+  } else {
+    let strength = checkStrength(password);
+    alert("Mật khẩu hợp lệ!\nĐộ mạnh: " + strength);
+    break;
+  }
+}
+</script>
+
+</body>
+</html>
